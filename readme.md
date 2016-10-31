@@ -1,96 +1,88 @@
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
 # Microsoft Azure IoT SDKs
 
-This repository contains both IoT device SDKs and IoT service SDKs. Device SDKs enable you connect client devices to Azure IoT Hub. Service SDKs enable you to manage your IoT Hub service instance.
+This repository contains Azure IoT SDKs for devices, for service applications as well as samples and developer tools.
 
-Visit http://azure.com/iotdev to learn more about developing applications for Azure IoT.
+---
+## Table of contents:
 
+- [Developing applications for Azure IoT](#developing-applications-for-azure-iot)
+- [How to clone the repository](#how-to-clone-the-repository)
+- [How to use the Azure IoT SDKs](#how-to-use-the-azure-iot-sdks)
+- [OS platforms and hardware compatibility](#os-platforms-and-hardware-compatibility)
+- [Contribution, feedback and issues](#contribution-feedback-and-issues)
+- [Support](#support)
+- [Additional resources](#additional-resources)
 
-## Microsoft Azure IoT device SDKs
+---
+## Developing applications for Azure IoT
 
-The Microsoft Azure IoT device SDKs contain code that facilitate building devices and applications that connect to and are managed by Azure IoT Hub services.
+Visit [http://azure.com/iotdev](http://azure.com/iotdev) to learn more about developing applications for Azure IoT.
 
-Devices and data sources in an IoT solution can range from a simple network-connected sensor to a powerful, standalone computing device. Devices may have limited processing capability, memory, communication bandwidth, and communication protocol support. The IoT device SDKs enable you to implement client applications for a wide variety of devices.
+---
+## How to clone the repository
 
-This repository contains the following IoT device SDKs:
+The repository is using [GitHub Submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules) for its dependencies. In order to automatically clone these submodules, you need to use the --recursive options as described here:
 
-- [Azure IoT device SDK for C](c/readme.md)
-- [Azure IoT device SDK for Node.js](node/device/core/readme.md)
-- [Azure IoT device SDK for Java](java/device/readme.md)
-- [Azure IoT device SDK for .NET](csharp/device/readme.md)
-- [Azure IoT device SDK for Python](python/device/readme.md)
+```
+git clone --recursive https://github.com/Azure/azure-iot-sdks.git 
+```
 
-Each language SDK includes sample code and documentation in addition to the library code. The API reference documentation is [here](http://azure.github.io/azure-iot-sdks).
+---
+## How to use the Azure IoT SDKs
 
-### OS platforms and hardware compatibility
+- **Using packages**: the simplest way to use our SDKs is to use the packages when available. The following packages are available:
+  - **npm** for Node v0.10+: 
+    - Device client: [azure-iot-device](https://www.npmjs.com/package/azure-iot-device),
+    - Service client: [azure-iothub](https://www.npmjs.com/package/azure-iothub)
+  - **Nuget** for .Net (.Net 4.5+, UWP, PCL, Xamarin): 
+    - Device client: [Microsoft.Azure.Devices.Client](https://www.nuget.org/packages/Microsoft.Azure.Devices.Client/)
+    - Service client: [Microsoft.Azure.Devices](https://www.nuget.org/packages/Microsoft.Azure.Devices)
+  - **apt-get** for Ubuntu (14.04, 15.04, 15.10, 16.04)
+    - Device client: [ppa-azureiot](https://launchpad.net/~aziotsdklinux/+archive/ubuntu/ppa-azureiot)
+  - **maven** for Java
+    - Service client: [iothub-jave-service-client](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.microsoft.azure.iothub-java-client%22%20AND%20a%3A%22iothub-java-service-client%22)
+    - Device client: [iothub-java-device-client](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.microsoft.azure.iothub-java-client%22%20AND%20a%3A%22iothub-java-device-client%22)
+  - **PyPI** for Python
+    - Device client: [iothub-client](https://pypi.python.org/pypi/iothub-client/)
+ 
+- **Compiling the source**: when no package is available for your platform or if you want to modify the SDKs code, or port the SDKs to a new platform, then you can leverage the build environement provided in the repository.
+    - **C**
+        - Device client: [Azure IoT device SDK for C](c/readme.md)
+        - Sertvice client: [Azure IoT device SDK for C](c/readme.md)
+    - **JavaScript** for Node
+        - Device client: [Azure IoT device SDK for Node.js](node/device/core/readme.md)
+        - Service client: [Azure IoT service SDK for Node.js](node/service/README.md)
+    - **Java**
+        - Device client: [Azure IoT device SDK for Java](java/device/readme.md)
+        - Service client: [Azure IoT service SDK for Java](java/service/readme.md)
+    - **JavaWrapper**
+    - **C#** for .Net
+        - Device client: [Azure IoT device SDK for .NET](csharp/device/readme.md)
+        - Service client: [Azure IoT service SDK for .NET](csharp/service/README.md)
+    - **Python**
+        - Device client: [Azure IoT device SDK for Python](python/device/readme.md)
+
+---
+## OS platforms and hardware compatibility
 
 Azure IoT device SDKs can be used with a broad range of OS platforms and devices. The minimum requirements are for the device platform to support the following:
 
-- Being capable of establishing an IP connection: only IP-capable devices can communicate directly with Azure IoT Hub.
-- Support TLS: required to establish a secure communication channel with Azure IoT Hub.
-- Support SHA-256: necessary to generate the secure token for authenticating the device with the service.
-- Have a Real Time Clock or implement code to connect to an NTP server: necessary for both establishing the TLS connection and generating the secure token for authentication.
-- Having at least 64KB of RAM: the memory footprint of the SDK depends on the SDK and protocol used as well as the platform targeted. The smallest footprint is achieved using the C SDK targeting microcontrollers.
+- **Being capable of establishing an IP connection**: only IP-capable devices can communicate directly with Azure IoT Hub.
+- **Support TLS**: required to establish a secure communication channel with Azure IoT Hub.
+- **Support SHA-256**: necessary to generate the secure token for authenticating the device with the service.
+- **Have a Real Time Clock or implement code to connect to an NTP server**: necessary for both establishing the TLS connection and generating the secure token for authentication.
+- **Having at least 64KB of RAM**: the memory footprint of the SDK depends on the SDK and protocol used as well as the platform targeted. The smallest footprint is achieved using the C SDK targeting microcontrollers.
 
-You can find an exhaustive list of the OS platforms the various SDKs have been tested against in the [Azure Certified for IoT device catalog](https://catalog.azureiotsuite.com/). Note that you might still be able to use the SDKs on OS and hardware platforms that are not listed on this page: all the SDKs are open sourced and designed to be portable. If you have suggestions, feedback or issues to report, refer to the Contribution and Support sections below.
+You can find an exhaustive list of the OS platforms the various SDKs have been tested against in the [Azure Certified for IoT device catalog](https://catalog.azureiotsuite.com/).
 
-## Microsoft Azure IoT service SDKs
+Note that you might still be able to use the SDKs on OS and hardware platforms that are not listed on this page: all the SDKs are open sourced and designed to be portable. If you have suggestions, feedback or issues to report, refer to the Contribution and Support sections below.
 
-The Azure IoT Service SDKs help you to build applications that interact with your devices and manage device identities in your IoT hub.
-
-- [Azure IoT service SDK for .NET](csharp/service/README.md)
-- [Azure IoT service SDK for Node.js](node/service/README.md)
-- [Azure IoT service SDK for Java](java/service/readme.md)
-
-
-## Samples
-
-Whithin the repository, you can find various types of simple samples that can help you get started.
-Below is a complete list of all these simple samples.
-In addition to these simple samples, you can find a long list of [getting started guides](doc/get_started) that describe all the steps necessary to run the simple samples on a wide variety of devices and platforms.
-And if you are looking for end to end samples that show how to do simple analytics and processing of the data generated by your device using Azure services such as Stream Analytics, Big Data, Machine Learning and others, check out our [E2E samples gallery](http://aka.ms/azureiotsamples).
-
-- C device SDK:
-   - [Simple sample using AMQP](c/serializer/samples/simplesample_amqp): shows how to connect to IoT Hub and send and receive serialized messages using the AMQP protocol and the serializer utility.
-   - [Simple sample using HTTP](c/serializer/samples/simplesample_http): shows how to connect to IoT Hub and send and receive serialized messages using the HTTP protocol and the serializer utility.
-   - [Simple sample using MQTT](c/serializer/samples/simplesample_mqtt): shows how to connect to IoT Hub and send and receive serialized messages using the MQTT protocol and the serializer utility.
-   - [Temperature sensor anomaly sample](c/serializer/samples/temp_sensor_anomaly): shows a simple application that sends temperature data to IoT Hub and receives alarms, using real data when running on an MBED board and simulated data when run on Windows.
-   - [Azure IoT Suite Remote Monitoring device sample](c/serializer/samples/remote_monitoring): shows how to connect a device to an Azure IoT Suite Remote Monitoring preconfigured solution.
-- C# device SDK:
-   - [Simple .NET sample using AMQP](csharp/device/samples/DeviceClientAmqpSample): Shows how to connect to IoT Hub and send and receive raw messages using the AMQP protocol.
-   - [Simple .NET sample using HTTP](csharp/device/samples/DeviceClientHttpSample): Shows how to connect to IoT Hub and send and receive raw messages using the HTTP protocol.
-   - [Simple .NET sample using MQTT](csharp/device/samples/DeviceClientMqttSample): Shows how to connect to IoT Hub and send and receive raw messages using the MQTT protocol.
-   - [Simple UWP C++ sample](csharp/device/samples/CppUWPSample): Shows how to connect to IoT Hub and send and receive raw messages in a C++ [UWP](https://msdn.microsoft.com/windows/uwp/get-started/whats-a-uwp) (Universal Windows Platform) application.
-   - [Simple UWP JS sample](csharp/device/samples/JSSample): Shows how to connect to IoT Hub and send and receive raw messages in a JavaScript [UWP](https://msdn.microsoft.com/windows/uwp/get-started/whats-a-uwp) application.
-   - [Simple UWP C# sample](csharp/device/samples/UWPSample): Shows how to connect to IoT Hub and send and receive raw messages in a C# [UWP](https://msdn.microsoft.com/windows/uwp/get-started/whats-a-uwp) application.
-   - [Simple .NET Micro Framework 4.3 sample](csharp/device/samples/NetMFDeviceClientHttpSample_43): Shows how to connect to IoT Hub and send and receive raw messages from a device running .NET Micro Framework 4.3.
-   - [Simple .NET Micro Framework 4.2 sample](csharp/device/samples/NetMFDeviceClientHttpSample_42): Shows how to connect to IoT Hub and send and receive raw messages from a device running .NET Micro Framework 4.2.
-- Java device SDK:
-   - [Simple send sample](java/device/samples/send-event): Shows how to connect and send messages to IoT Hub, passing the protocol of your choices as a parameter.
-   - [Simple send/receive sample](java/device/samples/send-receive-sample): Shows how to connect then send and receive messages to and from IoT Hub, passing the protocol of your choices as a parameter.
-   - [Simple send serialized messages sample](java/device/samples/send-serialized-event): Shows how to connect and send serialized messages to IoT Hub, passing the protocol of your choices as a parameter.
-   - [Simple sample handling messages received](java/device/samples/handle-messages): : Shows how to connect to IoT Hub and manage messages received from IoT Hub, passing the protocol of your choices as a parameter.
-- Java service SDK:
-   - [Device manager sample](java/service/samples/device-manager-sample): Shows how to work with the device ID registry of IoT Hub. 
-   - [Service client sample](java/service/samples/service-client-sample): Shows how to send Cloud to Device messages through IoT Hub. 
-- Node device SDK:
-   - [Simple device sample](node/device/samples/simple_sample_device.js): Shows how to connect to IoT Hub and send and receive messages using Node.js on a device.
-   - [Send batch](node/device/samples/send_batch_http.js): Shows how to connect to IoT Hub and send a batch of messages using Node.js on a device.
-   - [Azure IoT Suite Remote Monitoring device sample](node/device/samples/remote_monitoring.js): Shows how to connect a device runnig Node.js to an Azure IoT Suite remote Monitoring preconfigured solution.
-- Node service SDK:
-   - [Registry manager simple sample](node/service/samples/registry_sample.js): Shows how to manage the device ID registry of IoT Hub from a Node.js application.
-   - [Bulk Registry sample](node/service/samples/registry_sample.js): Shows how to create a set of device IDs in the device ID registry of IoT Hub in bulk from a Node.js application.
-   - [Simple Cloud to Device messaging sample](node/service/samples/send_c2d_message.js) : Shows how to send messages to a device from a Node.js application through IoT Hub.
-- Python device SDK:   
-   - [Simple Sample](python/device/samples/iothub_client_sample.py): shows how to connect to IoT Hub and send and receive messages using the AMQP, MQTT or HTTP protocol.
-   - [Class Sample using AMQP](python/device/samples/iothub_client_sample_class.py): shows how to connect to IoT Hub with a HubManager class to send and receive messages using the AMQP protocol.
-
-
+---
 ## Contribution, feedback and issues
 
 If you encounter any bugs, have suggestions for new features or if you would like to become an active contributor to this project please follow the instructions provided in the [contribution guidelines](CONTRIBUTING.md).
 
+---
 ## Support
 
 If you are having issues using one of the packages or using the Azure IoT Hub service that go beyond simple bug fixes or help requests that would be dealt within the [issues section](https://github.com/Azure/azure-iot-sdks/issues) of this project, the Microsoft Customer Support team will try and help out on a best effort basis.
@@ -102,6 +94,7 @@ Here is what you can expect Microsoft Support to be able to help with:
 * **Portal Issues**: Issues related to the portal, that includes access, security, dashboard, devices, Alarms, Usage, Settings and Actions.
 * **REST/API Issues**: Using the IoT Hub REST/APIs that are documented in the [documentation]( https://msdn.microsoft.com/library/mt548492.aspx).
 
+---
 ## Additional resources
 
 In addition to the language SDKs, this repository ([azure-iot-sdks](https://github.com/Azure/azure-iot-sdks)) contains the following folders:
@@ -125,3 +118,6 @@ This folder contains tools you will find useful when you are working with IoT Hu
 - [iothub-explorer](tools/iothub-explorer/readme.md): describes how to use the iothub-explorer node.js tool to provision a device for use in IoT Hub, monitor the messages from the device, and send commands to the device.
 - [Device Explorer](tools/DeviceExplorer/readme.md): this tool enables you to perform operations such as manage the devices registered to an IoT hub, view device-to-cloud messages sent to an IoT hub, and send cloud-to-device messages from an IoT hub. Note this tool only runs on Windows.
 - [iothub-diagnostics](tools/iothub-diagnostics/readme.md): this tool is provided to help diagnose issues with a device connecting to Azure IoT Hubs.
+
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
