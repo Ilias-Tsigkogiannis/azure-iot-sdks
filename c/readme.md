@@ -1,43 +1,32 @@
-# Microsoft Azure IoT device SDK for C
+# Microsoft Azure IoT SDKs and libraries for C
 
-The Microsoft Azure IoT device libraries for C contain code that facilitates building devices and applications that connect to and are managed by Azure IoT Hub services.
+This folder contains the following:
+- Microsoft Azure IoT Hub device client SDK for C to connect devices running C code to Azure IoT Hub
+- Microsoft Azure IoT Hub service client SDK for C to manage an Azure IoT Hub service instance from a C application
+- Serializer library for C to help you serialize and deserialize data on your device.
 
-The device library consists of a set of reusable components with abstract interfaces that enable pluggability between stock and custom modules.
-
-To meet the wide range of device requirements in the Internet of Things space, the C libraries are provided in source code form to support multiple form factors, operating systems, tools sets, protocols and communications patterns widely in use today.
-
-
-## Features
-
- * Sends event data to Azure IoT based services.
- * Maps server commands to device functions.
- * Buffers data when the network connection is down.
- * Batches messages to improve communication efficiency.
- * Supports pluggable transport protocols. HTTPS, AMQP and MQTT are the protocols currently available now.
- * Supports pluggable serialization methods. JSON serialization is available now.
-
-
-The library code:
+The SDKs and library code:
 
 * Is written in ANSI C (C99) to maximize code portability and broad platform compatibility.
 * Avoids compiler extensions.
-* Exposes a platform abstraction layer to isolate OS dependencies (threading and mutual exclusion mechanisms, communications protocol e.g. HTTP). Refer to [porting guide](doc/porting_guide.md) for more information.
+* In the device client SDK, the library exposes a platform abstraction layer to isolate OS dependencies (threading and mutual exclusion mechanisms, communications protocol e.g. HTTP). Refer to [porting guide](doc/porting_guide.md) for more information.
 
-Azure IoT device SDK for C can be used with a broad range of OS platforms and devices. For a list of tested configurations [click here](https://catalog.azureiotsuite.com/).
+## Developing applications for Azure IoT
 
-## Application development guides
-For information on how to use this library refer to the documents below:
+Visit [http://azure.com/iotdev](http://azure.com/iotdev) to learn more about developing applications for Azure IoT.
 
-- [Prepare your development environment to use the Azure IoT device SDK for C](doc/devbox_setup.md)
-- [Setup IoT Hub](../doc/setup_iothub.md)
-- [Provision and manage devices](../doc/manage_iot_hub.md)
-- [Azure IoT device SDK for C  tutorial](https://azure.microsoft.com/documentation/articles/iot-hub-device-sdk-c-intro/)
-- [Setup a Protocol Gateway - (i.e. MQTT)](https://github.com/Azure/azure-iot-protocol-gateway/blob/master/README.md)
-- [How to port the C libraries to other OS platforms](doc/porting_guide.md)
-- [Cross compilation example](doc/SDK_cross_compile_example.md)
-- [C API reference](http://azure.github.io/azure-iot-sdks/c/api_reference/index.html)
+## How to use the Azure IoT SDKs for C
 
-For guides on how to run the sample applications on supported platforms, check out in this [folder](../doc/get_started/).
+- **Using packages**: the simplest way to use our SDKs is to use the packages when available. The following packages are available:
+  - **NuGet** for C (on Windows):
+    - Device client: [Microsoft.Azure.IoTHub.IoTHubClient](https://www.nuget.org/packages/Microsoft.Azure.IoTHub.IoTHubClient)
+  - **apt-get** for C (on Ubuntu 14.04, 15.04, 15.10, 16.04)
+    - Device client: [ppa-azureiot](https://launchpad.net/~aziotsdklinux/+archive/ubuntu/ppa-azureiot)
+- **Compiling the source**: when no package is available for your platform or if you want to modify the SDKs code, or port the SDKs to a new platform, then you can leverage the build environement provided in the repository.
+    - Device client: [Azure IoT device SDK for C](c/readme.md)
+    - Service client: [Azure IoT device SDK for C](c/readme.md)
+
+--- 
 
 ## SDK folder structure
 
